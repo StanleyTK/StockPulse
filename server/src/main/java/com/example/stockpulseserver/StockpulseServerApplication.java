@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class StockpulseServerApplication {
 
     public static void main(String[] args) {
-        System.out.println("Starting Stockpulse Server Application...");
         SpringApplication.run(StockpulseServerApplication.class, args);
-        System.out.println("Yello - The application has started!");
+        System.out.println("The application has started!");
     }
-
 }
