@@ -1,18 +1,21 @@
 package com.example.stockpulseserver.model;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true, length = 20)
     private String username;
+
+    @Column(nullable = false, length = 60) // Increased length to accommodate hashed passwords
     private String password;
+
+    @Column(nullable = false, unique = true, length = 45)
+    private String email;
 
     // Getters and setters
     public Long getId() {
@@ -37,5 +40,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
