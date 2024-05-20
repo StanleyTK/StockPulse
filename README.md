@@ -1,6 +1,7 @@
 # StockPulse
 
 StockPulse is a stock portfolio tracking application developed with a Java Spring Boot backend and a React/Next.js frontend. The backend uses MySQL for data storage.
+### Note the project is still under construction
 
 ## Backend
 
