@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
+import { signIn } from 'next-auth/react';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -14,33 +15,18 @@ const Login = () => {
     });
   };
 
-  const authenticate = async (username, password) => {
-    console.log('Base URL in authenticate:', process.env.NEXT_PUBLIC_BASE_URL);
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password
-        })
-      });
-      if (response.ok) {
-        console.log("authenticated");
-      } else {
-        console.log("password wrong");
-      }
-    } catch (error) {
-      console.log("error " + error);
-    }
-  };
-  
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    authenticate(formData.username, formData.password);
+    const result = await signIn('credentials', {
+      redirect: false,
+      username: formData.username,
+      password: formData.password
+    });
+    if (!result.error) {
+      window.location.href = '/portfolio';
+    } else {
+      console.error(result.error);
+    }
   };
 
   return (
