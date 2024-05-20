@@ -78,4 +78,3 @@ In the `client` directory, you can run:
 To start the development server, run:
 ```sh
 npm run dev
-'''
