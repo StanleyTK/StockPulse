@@ -15,7 +15,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (session) {
-      router.push('/portfolio');
+      router.push('/news');
     }
   }, [session]);
 
