@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,8 +15,17 @@ public class User {
     @Column(nullable = false, length = 60)
     private String password;
 
-    @Column(nullable = false, unique = true, length = 45)
+    @Column(nullable = false, length = 45)
     private String email;
+
+    @Column(name = "first_name", length = 50)
+    private String firstName;
+
+    @Column(name = "last_name", length = 50)
+    private String lastName;
+
+    @Column(nullable = false)
+    private double money;
 
     // Getters and setters
     public Long getId() {
@@ -48,5 +58,29 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
     }
 }
