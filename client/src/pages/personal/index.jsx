@@ -5,7 +5,6 @@ const Competitive = () => {
   return (
     <ProtectedRoute>
       <Layout>
-        <h1 className="text-4xl mb-4">Personal Game</h1>
       </Layout>
     </ProtectedRoute>
   );
