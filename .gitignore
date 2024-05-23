@@ -1,0 +1,64 @@
+# .gitignore
+
+# Ignore environment variable files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Spring Boot specific files
+application.properties
+application.yml
+
+# Node.js dependencies
+node_modules/
+
+# Next.js specific files
+.next/
+out/
+
+# Build outputs
+build/
+dist/
+target/
+
+# Misc
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE-specific files
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
