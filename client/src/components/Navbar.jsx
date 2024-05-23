@@ -59,11 +59,11 @@ const Navbar = () => {
                 Personal
               </a>
             </Link>
-            <Link href="/competitive" legacyBehavior>
+            {/* <Link href="/competitive" legacyBehavior>
               <a className="bg-dark-blue hover:bg-deeper-blue text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-md">
                 Competitive
               </a>
-            </Link>
+            </Link> */}
             <div className="relative">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}

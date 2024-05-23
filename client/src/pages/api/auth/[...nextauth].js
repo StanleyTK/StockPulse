@@ -18,6 +18,7 @@ export default NextAuth({
           });
 
           const user = await res.json();
+          console.log("here");
 
           if (res.ok && user) {
             return user;

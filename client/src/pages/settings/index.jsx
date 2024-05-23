@@ -10,6 +10,7 @@ import {
   faGlobe,
   faHeadphones,
   faRightToBracket,
+  faDeleteLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import ProtectedRoute from '../../components/ProtectedRoute';
 import Layout from '../layout';
@@ -46,42 +47,11 @@ const Settings = () => {
               context="Privacy, security, change email or number"
               link="/settings/account"
             />
-            <Option
-              icon={theme === 'dark' ? faSun : faMoon}
-              header="Dark Mode"
-              context="Toggle between Light and Dark mode"
-              onClick={toggleTheme}
-              isToggle={true}
-            />
-            <NotificationButton
-              icon={faBell}
-              header="Notifications"
-              context="Message & Trip Notifications"
-              link="/settings/notifications"
-            />
-            <Option
-              icon={faServer}
-              header="Data & Preferences"
-              context="User Data, Preferences, Downloaded Trips"
-              link="/settings/data-preferences"
-            />
-            <Option
-              icon={faGlobe}
-              header="Region and Language"
-              context="Region & Language"
-              link="/settings/region-language"
-            />
-            <Option
-              icon={faHeadphones}
-              header="Customer Support"
-              context="Contact Us, About Us, FAQs"
-              link="/settings/support"
-            />
-            <Option
-              icon={faRightToBracket}
-              header="Log Out"
-              context="Log Out of Account"
-              link="/logout"
+             <Option
+              icon={faDeleteLeft}
+              header="Delete Account"
+              context="Delete your account"
+              link="/delete"
             />
           </div>
         </div>
