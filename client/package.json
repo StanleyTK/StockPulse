@@ -9,11 +9,13 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "chart.js": "^4.4.3",
     "dotenv": "^16.4.5",
     "mini-css-extract-plugin": "^2.9.0",
     "next": "latest",
     "next-auth": "^4.24.7",
     "react": "18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0"
   },
   "engines": {

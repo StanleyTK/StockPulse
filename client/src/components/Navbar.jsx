@@ -27,7 +27,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-gray-900 shadow-lg">
+    <nav className="flex justify-between items-center p-4 bg-grey-900 shadow-lg">
       <div className="flex items-center space-x-4">
         <Link href="/" legacyBehavior>
           <a className="flex items-center cursor-pointer">
@@ -37,6 +37,7 @@ const Navbar = () => {
         </Link>
       </div>
 
+      {session ? (
       <form onSubmit={handleSearchSubmit} className="flex items-center bg-gray-800 rounded-full overflow-hidden shadow-md">
         <input
           type="text"
@@ -47,12 +48,14 @@ const Navbar = () => {
         />
         <button type="submit" className="px-4 py-2 bg-gray-700 text-white font-bold hover:bg-gray-600 transition duration-300">Search</button>
       </form>
+      ) : null}
+ 
 
       <div className="flex space-x-4 items-center">
         {session ? (
           <>
             <Link href="/personal" legacyBehavior>
-              <a className="bg-dark-blue hover:bg-deeper-blue text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-md">
+              <a className="bg-dark-black hover:bg-deeper-black text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-md">
                 Personal
               </a>
             </Link>
