@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.stockpulseserver.dto.*;
+import com.example.stockpulseserver.dto.LoginResponse;
+import com.example.stockpulseserver.dto.ResponseMessage;
 import java.util.List;
 
 @RestController
@@ -20,13 +21,15 @@ public class UserController {
     public ResponseEntity<ResponseMessage> createUser(@RequestBody User user) {
         if (userService.isUsernameExists(user.getUsername()) || userService.isEmailExists(user.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                                 .body(new ResponseMessage("Username or Email already exists", HttpStatus.CONFLICT.value()));
+                    .body(new ResponseMessage("Username or Email already exists", HttpStatus.CONFLICT.value()));
         }
+        user.setFirstName("John");
+        user.setLastName("Doe");
         user.setMoney(10000);
 
         userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED)
-                             .body(new ResponseMessage("User created successfully", HttpStatus.CREATED.value()));
+                .body(new ResponseMessage("User created successfully", HttpStatus.CREATED.value()));
     }
 
     @GetMapping
@@ -36,18 +39,24 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseMessage> login(@RequestBody User loginRequest) {
+    public ResponseEntity<?> login(@RequestBody User loginRequest) {
         User user = userService.getUserByUsername(loginRequest.getUsername());
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ResponseMessage("User not found", HttpStatus.NOT_FOUND.value()));
         }
         if (userService.checkPassword(user, loginRequest.getPassword())) {
-            return ResponseEntity.ok(new ResponseMessage("Login successful", HttpStatus.OK.value()));
+            LoginResponse response = new LoginResponse(
+                    user.getId(),
+                    user.getUsername(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail()
+            );
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new ResponseMessage("Invalid password", HttpStatus.UNAUTHORIZED.value()));
         }
     }
-
 }

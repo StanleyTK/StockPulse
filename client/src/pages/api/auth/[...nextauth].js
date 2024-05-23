@@ -18,10 +18,14 @@ export default NextAuth({
           });
 
           const user = await res.json();
-          console.log("here");
-
           if (res.ok && user) {
-            return user;
+            return {
+              id: user.id,
+              username: user.username,
+              firstname: user.firstname,
+              email: user.email,
+              lastname: user.lastname
+            };
           } else {
             return null;
           }
@@ -36,11 +40,14 @@ export default NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.username = user.username; 
       }
       return token;
     },
     async session({ session, token }) {
       session.id = token.id;
+      session.user.username = token.username;
+
       return session;
     }
   }
