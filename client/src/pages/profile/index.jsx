@@ -1,14 +1,14 @@
 import ProtectedRoute from '../../components/ProtectedRoute';
 import Layout from '../layout';
 
-const News = () => {
+const Profile = () => {
   return (
     <ProtectedRoute>
       <Layout>
-        <h1 className="text-4xl mb-4">News</h1>
+        <h1 className="text-4xl mb-4">Your Profile</h1>
       </Layout>
     </ProtectedRoute>
   );
 };
 
-export default News;
+export default Profile;
