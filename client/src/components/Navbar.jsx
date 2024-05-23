@@ -7,7 +7,6 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
   const { data: session } = useSession();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -24,31 +23,44 @@ const Navbar = () => {
       <div className="flex space-x-4 items-center">
         {session ? (
           <>
+            <Link href="/personal" legacyBehavior>
+              <a className="bg-dark-blue hover:bg-deeper-blue text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-md">
+                Personal
+              </a>
+            </Link>
+            <Link href="/competitive" legacyBehavior>
+              <a className="bg-dark-blue hover:bg-deeper-blue text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-md">
+                Competitive
+              </a>
+            </Link>
             <div className="relative">
-              <button onClick={() => setMenuOpen(!menuOpen)} className="text-white hover:underline flex items-center">
-                <FontAwesomeIcon icon={faUserCircle} size="2x" className="text-white mr-2"/>
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="text-white hover:underline flex items-center"
+              >
+                <FontAwesomeIcon icon={faUserCircle} size="2x" className="text-white mr-2" />
                 {session.user.name}
               </button>
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2">
-                  <Link href="/news" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200">News</a>
+                <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-50">
+                  <Link href="/research" legacyBehavior>
+                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300 ease-in-out">
+                      Research
+                    </a>
                   </Link>
                   <Link href="/settings" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Settings</a>
-                  </Link>
-                  <Link href="/personal" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Personal</a>
-                  </Link>
-                  <Link href="/competitive" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Competitive</a>
+                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300 ease-in-out">
+                      Settings
+                    </a>
                   </Link>
                   <Link href="/profile" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
+                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300 ease-in-out">
+                      Profile
+                    </a>
                   </Link>
                   <button
                     onClick={() => signOut()}
-                    className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300 ease-in-out"
                   >
                     Sign Out
                   </button>

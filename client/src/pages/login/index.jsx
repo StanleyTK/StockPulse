@@ -14,7 +14,7 @@ const Login = () => {
 
   useEffect(() => {
     if (session) {
-      router.push('/news');
+      router.push('/research');
     }
   }, [session]);
 
@@ -33,7 +33,7 @@ const Login = () => {
       password: formData.password
     });
     if (!result.error) {
-      router.push('/news');
+      router.push('/research');
     } else {
       setMessage('Invalid username or password');
       console.error(result.error);
@@ -108,7 +108,7 @@ export async function getServerSideProps(context) {
   if (session) {
     return {
       redirect: {
-        destination: '/news',
+        destination: '/research',
         permanent: false,
       },
     };
