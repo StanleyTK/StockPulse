@@ -14,7 +14,7 @@ const Login = () => {
 
   useEffect(() => {
     if (session) {
-      console.log(session.user?.email);
+      // console.log(session.user?.email);
       router.push('/portfolio');
     }
   }, [session]);

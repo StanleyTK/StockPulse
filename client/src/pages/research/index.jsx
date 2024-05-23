@@ -38,7 +38,6 @@ const Research = () => {
     setShowPopup(!showPopup);
   };
 
-  // Sample data for the stock price graph
   const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
