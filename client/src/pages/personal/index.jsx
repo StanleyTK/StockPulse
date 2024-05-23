@@ -12,3 +12,6 @@ const Competitive = () => {
 };
 
 export default Competitive;
+//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
+
+//sk-proj-1PXRCQ5Vw9dWUnxcr8KJT3BlbkFJGDFVbci4btdC9ucj1kxg
