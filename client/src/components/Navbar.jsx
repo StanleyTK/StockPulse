@@ -4,10 +4,27 @@ import { useSession, signOut } from 'next-auth/react';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 5) {
+      setSearchQuery(value);
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim().length > 0) {
+      router.push(`/research?query=${searchQuery}`);
+    }
+  };
 
   return (
     <nav className="flex justify-between items-center p-4 bg-gray-900 shadow-lg">
@@ -19,6 +36,17 @@ const Navbar = () => {
           </a>
         </Link>
       </div>
+
+      <form onSubmit={handleSearchSubmit} className="flex items-center bg-gray-800 rounded-full overflow-hidden shadow-md">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search for a stock ticker..."
+          className="px-4 py-2 w-72 text-white bg-gray-800 focus:outline-none"
+        />
+        <button type="submit" className="px-4 py-2 bg-gray-700 text-white font-bold hover:bg-gray-600 transition duration-300">Search</button>
+      </form>
 
       <div className="flex space-x-4 items-center">
         {session ? (
@@ -42,25 +70,20 @@ const Navbar = () => {
                 {session.user.name}
               </button>
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-50">
-                  <Link href="/research" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300 ease-in-out">
-                      Research
-                    </a>
-                  </Link>
+                <div className="absolute right-0 mt-2 w-64 bg-gray-900 rounded-md shadow-lg py-2 z-50">
                   <Link href="/settings" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300 ease-in-out">
+                    <a className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition duration-300 ease-in-out">
                       Settings
                     </a>
                   </Link>
                   <Link href="/profile" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300 ease-in-out">
+                    <a className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition duration-300 ease-in-out">
                       Profile
                     </a>
                   </Link>
                   <button
                     onClick={() => signOut()}
-                    className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200 transition duration-300 ease-in-out"
+                    className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-700 transition duration-300 ease-in-out"
                   >
                     Sign Out
                   </button>

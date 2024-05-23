@@ -15,7 +15,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (session) {
-      router.push('/research');
+      router.push('/personal');
     }
   }, [session]);
 

@@ -1,0 +1,65 @@
+# Root-level ignores
+.DS_Store
+node_modules/
+*.log
+
+# Ignore environment variable files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore build outputs
+/build
+/dist
+
+# Ignore IDE-specific files
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+
+# Ignore debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js specific ignores
+.next/
+out/
+
+# Spring Boot specific files
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+application.properties
+application.yml
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
