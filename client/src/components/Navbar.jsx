@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -17,25 +19,18 @@ const Navbar = () => {
             <span className="text-white text-2xl font-semibold">StockPulse</span>
           </a>
         </Link>
-       
-      </div>
-      <div className="mx-4 flex-grow max-w-md">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full px-4 py-2 rounded-md bg-gray-800 text-white placeholder-gray-500 focus:outline-none"
-        />
       </div>
 
       <div className="flex space-x-4 items-center">
         {session ? (
           <>
             <div className="relative">
-              <button onClick={() => setMenuOpen(!menuOpen)} className="text-white hover:underline">
-                ☰
+              <button onClick={() => setMenuOpen(!menuOpen)} className="text-white hover:underline flex items-center">
+                <FontAwesomeIcon icon={faUserCircle} size="2x" className="text-white mr-2"/>
+                {session.user.name}
               </button>
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
+                <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2">
                   <Link href="/news" legacyBehavior>
                     <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200">News</a>
                   </Link>
@@ -47,6 +42,9 @@ const Navbar = () => {
                   </Link>
                   <Link href="/competitive" legacyBehavior>
                     <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Competitive</a>
+                  </Link>
+                  <Link href="/profile" legacyBehavior>
+                    <a className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
                   </Link>
                   <button
                     onClick={() => signOut()}
