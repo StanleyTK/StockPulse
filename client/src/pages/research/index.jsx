@@ -7,7 +7,7 @@ import Graph from './components/Graphs';
 import Stats from './components/Stats';
 import Popup from './components/Popup';
 import 'chart.js/auto';
-
+import { Session } from 'next-auth';
 const Research = () => {
   const router = useRouter();
   const { query } = router.query;
