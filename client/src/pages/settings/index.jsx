@@ -52,7 +52,7 @@ const Settings = () => {
               icon={faUser}
               header="Account"
               context="Privacy, security, change email or number"
-              link="/settings/account"
+              link="/profile"
             />
             <Options
               icon={faDeleteLeft}

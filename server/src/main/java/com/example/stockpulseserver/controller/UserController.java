@@ -24,9 +24,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ResponseMessage("Username or Email already exists", HttpStatus.CONFLICT.value()));
         }
-        user.setFirstName("John");
-        user.setLastName("Doe");
-        user.setMoney(10000);
 
         userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -61,8 +58,6 @@ public class UserController {
             LoginResponse response = new LoginResponse(
                     user.getId(),
                     user.getUsername(),
-                    user.getFirstName(),
-                    user.getLastName(),
                     user.getEmail()
             );
             return ResponseEntity.ok(response);

@@ -17,20 +17,12 @@ public class User {
     @Column(nullable = false, unique = true, length = 20)
     private String username;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false, length = 45)
     private String email;
 
-    @Column(name = "first_name", length = 50)
-    private String firstName;
-
-    @Column(name = "last_name", length = 50)
-    private String lastName;
-
-    @Column(nullable = false)
-    private double money;
 
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES";
@@ -62,9 +54,6 @@ public class User {
         return new SecretKeySpec(keyBytes, ALGORITHM);
     }
 
-    // Getters and setters
-    // (Include the rest of your getters and setters here)
-
     public Long getId() {
         return id;
     }
@@ -93,27 +82,5 @@ public class User {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
 }

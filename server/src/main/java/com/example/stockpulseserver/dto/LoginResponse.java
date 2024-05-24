@@ -10,11 +10,10 @@ public class LoginResponse {
     // Constructors
     public LoginResponse() {}
 
-    public LoginResponse(Long id, String username, String firstName, String lastName, String email) {
+    public LoginResponse(Long id, String username, String email) {
         this.id = id;
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
+
         this.email = email;
     }
 
@@ -35,21 +34,6 @@ public class LoginResponse {
         this.username = username;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getEmail() {
         return email;
