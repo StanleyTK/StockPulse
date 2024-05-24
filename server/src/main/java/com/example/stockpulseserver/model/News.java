@@ -21,7 +21,6 @@ public class News {
         this.symbol = symbol;
     }
 
-    // Getter and Setter methods
     public Long getId() {
         return id;
     }

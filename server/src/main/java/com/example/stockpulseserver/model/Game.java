@@ -9,23 +9,19 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 6)
+    @Column(nullable = false, unique = true, length = 20)
     private String name;
 
     @Column(nullable = false)
     private long startingMoney;
 
     @Column(nullable = false)
-    private int gameMode;
+    private char gameMode; // p for personal, c for comp
 
     public Game() {}
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -44,11 +40,11 @@ public class Game {
         this.startingMoney = startingMoney;
     }
 
-    public int getGameMode() {
+    public char getGameMode() {
         return gameMode;
     }
 
-    public void setGameMode(int gameMode) {
+    public void setGameMode(char gameMode) {
         this.gameMode = gameMode;
     }
 }
