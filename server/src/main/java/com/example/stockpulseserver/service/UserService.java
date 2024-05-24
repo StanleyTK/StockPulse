@@ -37,4 +37,8 @@ public class UserService {
     public boolean checkPassword(User user, String rawPassword) {
         return user.getPassword().equals(rawPassword);
     }
+
+    public void deleteUser(User deletedUser) {
+        userRepository.delete(deletedUser);
+    }
 }

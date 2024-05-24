@@ -38,6 +38,17 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(@RequestBody User user) {
+        User deletedUser = userService.getUserByUsername(user.getUsername());
+        if (deletedUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("User cannot be found", HttpStatus.NOT_FOUND.value()));
+        }
+        userService.deleteUser(deletedUser);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ResponseMessage("User deleted successfully", HttpStatus.CREATED.value()));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User loginRequest) {
         User user = userService.getUserByUsername(loginRequest.getUsername());
