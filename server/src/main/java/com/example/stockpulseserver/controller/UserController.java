@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.stockpulseserver.dto.LoginResponse;
 import com.example.stockpulseserver.dto.ResponseMessage;
+
 import java.util.List;
 
 @RestController
@@ -23,9 +24,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ResponseMessage("Username or Email already exists", HttpStatus.CONFLICT.value()));
         }
-        user.setFirstName("John");
-        user.setLastName("Doe");
-        user.setMoney(10000);
 
         userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -36,6 +34,17 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(@RequestBody User user) {
+        User deletedUser = userService.getUserByUsername(user.getUsername());
+        if (deletedUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("User cannot be found", HttpStatus.NOT_FOUND.value()));
+        }
+        userService.deleteUser(deletedUser);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ResponseMessage("User deleted successfully", HttpStatus.CREATED.value()));
     }
 
     @PostMapping("/login")
@@ -49,8 +58,6 @@ public class UserController {
             LoginResponse response = new LoginResponse(
                     user.getId(),
                     user.getUsername(),
-                    user.getFirstName(),
-                    user.getLastName(),
                     user.getEmail()
             );
             return ResponseEntity.ok(response);
