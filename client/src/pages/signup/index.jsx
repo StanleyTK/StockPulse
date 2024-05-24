@@ -28,6 +28,11 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.username.length < 8 || formData.password.length < 8) {
+      setMessage('Username and password must be at least 8 characters long');
+      return;
+    }
+
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
         method: 'POST',
@@ -86,6 +91,7 @@ const Signup = () => {
                 name="username"
                 type="text"
                 required
+                minLength={8}
                 value={formData.username}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-600 rounded shadow-sm bg-gray-700 text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
@@ -102,6 +108,7 @@ const Signup = () => {
                 name="password"
                 type="password"
                 required
+                minLength={8}
                 value={formData.password}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-600 rounded shadow-sm bg-gray-700 text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"

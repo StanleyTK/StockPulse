@@ -13,7 +13,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-
     public boolean isUsernameExists(String username) {
         return userRepository.findByUsername(username).isPresent();
     }
@@ -23,6 +22,11 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        try {
+            user.setPassword(user.getPassword()); // This will encrypt the password
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return userRepository.save(user);
     }
 
@@ -35,7 +39,13 @@ public class UserService {
     }
 
     public boolean checkPassword(User user, String rawPassword) {
-        return user.getPassword().equals(rawPassword);
+        try {
+            String decryptedPassword = User.decrypt(user.getPassword());
+            return decryptedPassword.equals(rawPassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void deleteUser(User deletedUser) {
