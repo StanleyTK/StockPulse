@@ -3,13 +3,13 @@ import Layout from '../layout';
 import AccountBalance from './components/AccountBalance';
 import { useSession } from 'next-auth/react';
 
-const Portfolio = () => {
+const Game = () => {
   const { data: session } = useSession();
 
   return (
     <ProtectedRoute>
       <Layout>
-        <h1 className="text-2xl font-bold text-center my-4">Personal Portfolio</h1>
+        <h1 className="text-2xl font-bold text-center my-4">Game</h1>
         <div className="text-center my-4">
           <h2 className="text-lg font-semibold">Hello, {session?.user?.id || 'null'}!</h2>
         </div>
@@ -19,4 +19,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default Game;
