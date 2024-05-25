@@ -22,7 +22,7 @@ public class NewsController {
     private OpenAIService openAIService;
 
     @PostMapping()
-    public ResponseEntity<ResponseMessage> buyStock(@RequestBody News news) {
+    public ResponseEntity<ResponseMessage> getNews(@RequestBody News news) {
         if (news.getSymbol() == null || news.getSymbol().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseMessage("Stock symbol is required", HttpStatus.BAD_REQUEST.value()));
