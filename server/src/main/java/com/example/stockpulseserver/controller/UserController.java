@@ -10,6 +10,7 @@ import com.example.stockpulseserver.dto.LoginResponse;
 import com.example.stockpulseserver.dto.ResponseMessage;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -37,10 +38,10 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/deleteUser")
     public ResponseEntity<?> delete(@RequestBody User user) {
-        User deletedUser = userService.getUserByUsername(user.getUsername());
-        if (deletedUser == null) {
+        Optional<User> deletedUser = userService.getUserById(user.getId());
+        if (deletedUser.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("User cannot be found", HttpStatus.NOT_FOUND.value()));
         }
         userService.deleteUser(deletedUser);

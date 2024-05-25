@@ -20,10 +20,10 @@ const Settings = () => {
   const handleConfirmDelete = async () => {
     setShowModal(false);
     console.log(session?.user?.username);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/delete`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({username : session?.user?.username}),
+      body: JSON.stringify({id : session?.user?.id}),
     });
     if (res.ok) {
       console.log('Account deleted');

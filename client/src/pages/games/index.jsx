@@ -2,8 +2,8 @@
 import React from 'react';
 import Layout from '../layout';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
 import ProtectedRoute from '../../components/ProtectedRoute';
+import Link from 'next/link';
 import GameList from './components/gameList';
 const Game = () => {
   const { data: session } = useSession();

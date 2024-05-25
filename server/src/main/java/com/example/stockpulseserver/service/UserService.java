@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -61,7 +62,11 @@ public class UserService {
         return false;
     }
 
-    public void deleteUser(User deletedUser) {
-        userRepository.delete(deletedUser);
+    public void deleteUser(Optional<User> deletedUser) {
+        userRepository.delete(deletedUser.get());
+    }
+
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 }
