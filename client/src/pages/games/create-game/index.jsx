@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Layout from '../../layout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
+import { useRouter } from 'next/router'; // Changed import
 
 const CreateGame = () => {
+  const router = useRouter(); // Changed variable assignment
   const [gameName, setGameName] = useState('');
   const [startingMoney, setStartingMoney] = useState('');
   const [gameType, setGameType] = useState('personal');
@@ -20,8 +22,20 @@ const CreateGame = () => {
       gameType,
     };
 
-    // Make the API call here
-    console.log('Submitting game data:', gameData);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/game`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        startingMoney: startingMoney,
+        gameMode: "p",
+        name: gameName
+      }),
+    });
+    if (res.ok) {
+      console.log('Game Created');
+      router.push("/games");
+    }
+    
 
     // Reset form
     setGameName('');
@@ -30,7 +44,6 @@ const CreateGame = () => {
   };
 
   return (
-   // <ProtectedRoute>
     <Layout>
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
         <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
@@ -88,7 +101,6 @@ const CreateGame = () => {
         </div>
       </div>
     </Layout>
-   //</ProtectedRoute>
   );
 };
 
