@@ -27,6 +27,7 @@ public class UserController {
         }
 
         userService.saveUser(user);
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseMessage("User created successfully", HttpStatus.CREATED.value()));
     }

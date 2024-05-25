@@ -1,9 +1,13 @@
 package com.example.stockpulseserver.service;
 
 import com.example.stockpulseserver.model.User;
+import com.example.stockpulseserver.model.Profile;
+import com.example.stockpulseserver.repository.ProfileRepository;
+import com.example.stockpulseserver.service.ProfileService;
 import com.example.stockpulseserver.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +18,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ProfileRepository profileRepository;
+
     public boolean isUsernameExists(String username) {
         return userRepository.findByUsername(username).isPresent();
     }
@@ -22,13 +29,19 @@ public class UserService {
         return userRepository.findByEmail(email).isPresent();
     }
 
+    @Transactional
     public User saveUser(User user) {
         try {
             user.setPassword(user.getPassword()); // This will encrypt the password
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        Profile profile = new Profile(savedUser.getId());
+        profileRepository.save(profile);
+
+        return savedUser;
     }
 
     public List<User> getAllUsers() {
