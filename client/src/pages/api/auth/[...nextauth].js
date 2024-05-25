@@ -22,9 +22,7 @@ export default NextAuth({
             return {
               id: user.id,
               username: user.username,
-              firstname: user.firstname,
               email: user.email,
-              lastname: user.lastname
             };
           } else {
             return null;
