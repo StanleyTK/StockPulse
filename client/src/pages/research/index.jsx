@@ -4,8 +4,6 @@ import ProtectedRoute from '../../components/ProtectedRoute';
 import Layout from '../layout';
 import StockInfo from './components/StockInfo';
 import Graph from './components/Graphs';
-import Stats from './components/Stats';
-import Popup from './components/Popup';
 import 'chart.js/auto';
 import { Session } from 'next-auth';
 const Research = () => {
@@ -74,19 +72,9 @@ const Research = () => {
                 <div className="mt-4">
                   <Graph data={data} />
                 </div>
-                <div className="mt-4 flex justify-between items-center bg-gray-800 p-4 rounded-md">
-                  <Stats stats={stats} />
-                  <button
-                    onClick={togglePopup}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Buy/Sell
-                  </button>
-                </div>
               </div>
             )
           )}
-          {showPopup && <Popup closePopup={togglePopup} />}
         </div>
       </Layout>
     </ProtectedRoute>
