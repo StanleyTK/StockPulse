@@ -26,7 +26,7 @@ public class GameController {
     }
 
     @PostMapping()
-    public ResponseEntity<ResponseMessage> buyStock(@RequestBody Game game) {
+    public ResponseEntity<ResponseMessage> createGame(@RequestBody Game game) {
         Optional<Game> existingGame = gameService.findByName(game.getName());
         if (existingGame.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -37,4 +37,16 @@ public class GameController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseMessage("Game created", HttpStatus.CREATED.value()));
     }
+
+//    @DeleteMapping()
+//    public ResponseEntity<?> deleteGame(@RequestBody Game game) {
+//        Game games = gameService.getGameById(game.getId());
+//        if (games == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("Game cannot be found", HttpStatus.NOT_FOUND.value()));
+//        }
+//        gameService.deleteGame(deleteGame);
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .body(new ResponseMessage("Game deleted successfully", HttpStatus.CREATED.value()));
+//    }
+ 
 }
