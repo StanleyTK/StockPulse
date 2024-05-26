@@ -10,7 +10,6 @@ import com.example.stockpulseserver.dto.LoginResponse;
 import com.example.stockpulseserver.dto.ResponseMessage;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -68,7 +67,6 @@ public class UserController {
                     .body(new ResponseMessage("Invalid password", HttpStatus.UNAUTHORIZED.value()));
         }
     }
-
     @PutMapping("/update")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         try {
@@ -78,8 +76,9 @@ public class UserController {
                         .body(new ResponseMessage("User not found", HttpStatus.NOT_FOUND.value()));
             }
 
-            boolean usernameChanged = !user.getUsername().equals(existingUser.getUsername());
-            boolean emailChanged = !user.getEmail().equals(existingUser.getEmail());
+            boolean usernameChanged = user.getUsername() != null && !user.getUsername().equals(existingUser.getUsername());
+            boolean emailChanged = user.getEmail() != null && !user.getEmail().equals(existingUser.getEmail());
+            boolean passwordChanged = user.getPassword() != null && !user.getPassword().equals(existingUser.getPassword());
 
             if (usernameChanged && userService.isUsernameExists(user.getUsername())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -91,16 +90,13 @@ public class UserController {
                         .body(new ResponseMessage("Email already exists", HttpStatus.CONFLICT.value()));
             }
 
-            // Update fields
             if (usernameChanged) {
                 existingUser.setUsername(user.getUsername());
             }
             if (emailChanged) {
                 existingUser.setEmail(user.getEmail());
             }
-
-            // Encrypt password if it has changed
-            if (user.getPassword() != null && !user.getPassword().equals(existingUser.getPassword())) {
+            if (passwordChanged) {
                 existingUser.setPassword(user.getPassword());
             }
 
@@ -111,5 +107,6 @@ public class UserController {
                     .body(new ResponseMessage("Error updating user: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value()));
         }
     }
+
 
 }
