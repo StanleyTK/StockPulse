@@ -74,11 +74,6 @@ const Navbar = () => {
                       Settings
                     </a>
                   </Link>
-                  <Link href="/profile" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition duration-300 ease-in-out">
-                      Profile
-                    </a>
-                  </Link>
                   <button
                     onClick={() => signOut()}
                     className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-700 transition duration-300 ease-in-out"

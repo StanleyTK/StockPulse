@@ -3,7 +3,6 @@ package com.example.stockpulseserver.service;
 import com.example.stockpulseserver.model.User;
 import com.example.stockpulseserver.model.Profile;
 import com.example.stockpulseserver.repository.ProfileRepository;
-import com.example.stockpulseserver.service.ProfileService;
 import com.example.stockpulseserver.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class UserService {
     @Transactional
     public User saveUser(User user) {
         try {
-            user.setPassword(user.getPassword()); // This will encrypt the password
+            user.setPassword(user.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,18 +51,12 @@ public class UserService {
         return userRepository.findByUsername(username).orElse(null);
     }
 
-    public boolean checkPassword(User user, String rawPassword) {
-        try {
-            String decryptedPassword = User.decrypt(user.getPassword());
-            return decryptedPassword.equals(rawPassword);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public boolean checkPassword(User user, String rawPassword) {
+//        return user.getPassword() == rawPassword;
+//    }
 
-    public void deleteUser(Optional<User> deletedUser) {
-        userRepository.delete(deletedUser.get());
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 
     public Optional<User> getUserById(Long id) {

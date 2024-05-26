@@ -13,7 +13,6 @@ public class LoginResponse {
     public LoginResponse(Long id, String username, String email) {
         this.id = id;
         this.username = username;
-
         this.email = email;
     }
 
@@ -33,7 +32,6 @@ public class LoginResponse {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public String getEmail() {
         return email;

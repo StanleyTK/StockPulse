@@ -40,8 +40,8 @@ public class UserController {
 
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> delete(@RequestBody User user) {
-        Optional<User> deletedUser = userService.getUserById(user.getId());
-        if (deletedUser.isEmpty()) {
+        User deletedUser = userService.getUserById(user.getId()).orElse(null);
+        if (deletedUser == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("User cannot be found", HttpStatus.NOT_FOUND.value()));
         }
         userService.deleteUser(deletedUser);
@@ -56,7 +56,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ResponseMessage("User not found", HttpStatus.NOT_FOUND.value()));
         }
-        if (userService.checkPassword(user, loginRequest.getPassword())) {
+        if (loginRequest.getUsername().equals(user.getUsername()) && loginRequest.getPassword().equals(user.getPassword())) {
             LoginResponse response = new LoginResponse(
                     user.getId(),
                     user.getUsername(),
@@ -68,4 +68,48 @@ public class UserController {
                     .body(new ResponseMessage("Invalid password", HttpStatus.UNAUTHORIZED.value()));
         }
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        try {
+            User existingUser = userService.getUserById(user.getId()).orElse(null);
+            if (existingUser == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseMessage("User not found", HttpStatus.NOT_FOUND.value()));
+            }
+
+            boolean usernameChanged = !user.getUsername().equals(existingUser.getUsername());
+            boolean emailChanged = !user.getEmail().equals(existingUser.getEmail());
+
+            if (usernameChanged && userService.isUsernameExists(user.getUsername())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(new ResponseMessage("Username already exists", HttpStatus.CONFLICT.value()));
+            }
+
+            if (emailChanged && userService.isEmailExists(user.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(new ResponseMessage("Email already exists", HttpStatus.CONFLICT.value()));
+            }
+
+            // Update fields
+            if (usernameChanged) {
+                existingUser.setUsername(user.getUsername());
+            }
+            if (emailChanged) {
+                existingUser.setEmail(user.getEmail());
+            }
+
+            // Encrypt password if it has changed
+            if (user.getPassword() != null && !user.getPassword().equals(existingUser.getPassword())) {
+                existingUser.setPassword(user.getPassword());
+            }
+
+            userService.saveUser(existingUser);
+            return ResponseEntity.ok(new ResponseMessage("User updated successfully", HttpStatus.OK.value()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseMessage("Error updating user: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        }
+    }
+
 }

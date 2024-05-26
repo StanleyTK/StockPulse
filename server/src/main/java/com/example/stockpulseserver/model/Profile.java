@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Profile {
     @Id
     @Column(name = "user_id", nullable = false)
-    private Long userId; // Use the same type as the ID of the User entity
+    private Long userId;
 
     @Column(nullable = true, length = 20)
     private String firstName;
