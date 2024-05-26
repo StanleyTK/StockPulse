@@ -19,7 +19,7 @@ public class ProfileController {
     public Profile createProfile(@RequestBody Profile profile) {
 
         if (profile.getProfilePicture() == null) {
-            profile.setProfilePicture("/default_pfp.png"); // Default value for profilePicture
+            profile.setProfilePicture("/default_pfp.png");
         }
 
         return profileService.createProfile(profile);

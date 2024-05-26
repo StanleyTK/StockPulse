@@ -16,7 +16,7 @@ public class Game {
     private long startingMoney;
 
     @Column(nullable = false)
-    private char gameMode; // p for personal, c for comp
+    private char gameMode;
 
     public Game() {}
 

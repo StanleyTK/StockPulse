@@ -38,15 +38,16 @@ public class GameController {
                 .body(new ResponseMessage("Game created", HttpStatus.CREATED.value()));
     }
 
-//    @DeleteMapping()
-//    public ResponseEntity<?> deleteGame(@RequestBody Game game) {
-//        Game games = gameService.getGameById(game.getId());
-//        if (games == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("Game cannot be found", HttpStatus.NOT_FOUND.value()));
-//        }
-//        gameService.deleteGame(deleteGame);
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(new ResponseMessage("Game deleted successfully", HttpStatus.CREATED.value()));
-//    }
+    @DeleteMapping()
+    public ResponseEntity<?> deleteGame(@RequestBody Game game) {
+        Optional<Game> gameList = gameService.getGameById(game.getId());
+        if (gameList == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("Game cannot be found", HttpStatus.NOT_FOUND.value()));
+        }
+        Game games = gameList.get();
+        gameService.deleteGame(games);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ResponseMessage("Game deleted successfully", HttpStatus.CREATED.value()));
+    }
 
 }

@@ -44,6 +44,7 @@ const CreateGame = () => {
   };
 
   return (
+    <ProtectedRoute>
     <Layout>
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
         <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
@@ -101,6 +102,7 @@ const CreateGame = () => {
         </div>
       </div>
     </Layout>
+    </ProtectedRoute>
   );
 };
 
