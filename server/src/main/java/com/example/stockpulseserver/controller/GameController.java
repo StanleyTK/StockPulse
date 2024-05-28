@@ -2,6 +2,7 @@ package com.example.stockpulseserver.controller;
 
 import com.example.stockpulseserver.dto.ResponseMessage;
 import com.example.stockpulseserver.model.Game;
+import com.example.stockpulseserver.model.UserGame;
 import com.example.stockpulseserver.service.GamesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,17 +26,29 @@ public class GameController {
         return ResponseEntity.ok(games);
     }
 
-    @PostMapping()
-    public ResponseEntity<ResponseMessage> createGame(@RequestBody Game game) {
+    @PostMapping
+    public ResponseEntity<ResponseMessage> createGame(@RequestBody Game game, @RequestParam Long userId) {
         Optional<Game> existingGame = gameService.findByName(game.getName());
         if (existingGame.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ResponseMessage("Game name already exists", HttpStatus.CONFLICT.value()));
         }
-        gameService.saveGame(game);
+        Game createdGame = gameService.saveGame(game);
+        gameService.addUserToGame(userId, createdGame.getId());
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ResponseMessage("Game created", HttpStatus.CREATED.value()));
+                .body(new ResponseMessage("Game created and user added to the game", HttpStatus.CREATED.value()));
+    }
+
+    @PostMapping("/user/{userId}/game/{gameId}")
+    public void addUserToGame(@PathVariable Long userId, @PathVariable Long gameId) {
+        gameService.addUserToGame(userId, gameId);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Game>> getGamesByUser(@PathVariable Long userId) {
+        List<Game> games = gameService.getGamesByUser(userId);
+        return ResponseEntity.ok(games);
     }
 
     @DeleteMapping()
