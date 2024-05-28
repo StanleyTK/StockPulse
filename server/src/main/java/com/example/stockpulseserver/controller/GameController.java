@@ -41,7 +41,7 @@ public class GameController {
     @DeleteMapping()
     public ResponseEntity<?> deleteGame(@RequestBody Game game) {
         Optional<Game> gameList = gameService.getGameById(game.getId());
-        if (gameList == null) {
+        if (gameList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("Game cannot be found", HttpStatus.NOT_FOUND.value()));
         }
         Game games = gameList.get();
