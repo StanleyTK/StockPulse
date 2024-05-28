@@ -47,6 +47,7 @@ public class GameController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Game>> getGamesByUser(@PathVariable Long userId) {
+        System.out.println(userId);
         List<Game> games = gameService.getGamesByUser(userId);
         return ResponseEntity.ok(games);
     }

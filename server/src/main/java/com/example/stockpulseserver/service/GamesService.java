@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,8 +38,16 @@ public class GamesService {
     public Game saveGame(Game game) {
         return gameRepository.save(game);
     }
+
+
     public List<Game> getGamesByUser(Long userId) {
         List<UserGame> userGames = userGameRepository.findByUserId(userId);
+//        List<Long> gameIds = List.of();
+//        for (UserGame userGame : userGames) {
+//            if (Objects.equals(userGame.getUserId(), userId)) {
+//                gameIds.add(userGame.getGameId());
+//            }
+        //}
         List<Long> gameIds = userGames.stream()
                 .map(UserGame::getGameId)
                 .collect(Collectors.toList());

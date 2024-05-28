@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import Layout from '../../layout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
-import { useRouter } from 'next/router'; // Changed import
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+
+
 
 const CreateGame = () => {
-  const router = useRouter(); // Changed variable assignment
+  const router = useRouter();
   const [gameName, setGameName] = useState('');
   const [startingMoney, setStartingMoney] = useState('');
   const [gameType, setGameType] = useState('personal');
+  const { data: session } = useSession();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +27,7 @@ const CreateGame = () => {
       gameType,
     };
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/game`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/game?userId=${session?.user?.id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -34,6 +39,9 @@ const CreateGame = () => {
     if (res.ok) {
       console.log('Game Created');
       router.push("/games");
+    }
+    else {
+      alert("Something went wrong");
     }
     
 
