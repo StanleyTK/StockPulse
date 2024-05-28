@@ -1,12 +1,17 @@
 package com.example.stockpulseserver.service;
 
 import com.example.stockpulseserver.model.Game;
+import com.example.stockpulseserver.model.User;
+import com.example.stockpulseserver.model.UserGame;
 import com.example.stockpulseserver.repository.GameRepository;
+import com.example.stockpulseserver.repository.UserGameRepository;
+import com.example.stockpulseserver.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GamesService {
@@ -14,10 +19,31 @@ public class GamesService {
     @Autowired
     private GameRepository gameRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserGameRepository userGameRepository;
+
+    public void addUserToGame(Long userId, Long gameId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Game game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
+
+        UserGame userGame = new UserGame();
+        userGame.setUserId(user.getId());
+        userGame.setGameId(game.getId());
+        userGameRepository.save(userGame);
+    }
     public Game saveGame(Game game) {
         return gameRepository.save(game);
     }
-
+    public List<Game> getGamesByUser(Long userId) {
+        List<UserGame> userGames = userGameRepository.findByUserId(userId);
+        List<Long> gameIds = userGames.stream()
+                .map(UserGame::getGameId)
+                .collect(Collectors.toList());
+        return gameRepository.findAllById(gameIds);
+    }
     public List<Game> getAllGames() {
         return gameRepository.findAll();
     }
