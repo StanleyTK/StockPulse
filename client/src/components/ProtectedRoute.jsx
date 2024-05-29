@@ -7,15 +7,23 @@ const ProtectedRoute = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'loading') return; 
-    if (!session) router.push('/login'); 
+    if (status === 'loading') return; // Prevents effect from running until loading is complete
+    if (!session) router.push('/login'); // Redirects to login if no session
   }, [session, status, router]);
 
-  if (session) {
-    return children;
+  if (status === 'loading') {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="loader"></div> {/* Consider a CSS spinner or a graphic loader */}
+      </div>
+    );
   }
 
-  return <div>Loading...</div>;
+  if (session) {
+    return children; // Renders children when the session is present
+  }
+
+  return null; // Returns null while waiting for session without showing "Loading..."
 };
 
 export default ProtectedRoute;

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProtectedRoute from '../../../components/ProtectedRoute';
 
 const Options = ({ icon, header, context, link, onClick, isToggle }) => {
   const IconComponent = (
@@ -24,19 +25,28 @@ const Options = ({ icon, header, context, link, onClick, isToggle }) => {
 
   if (isToggle) {
     return (
+      <ProtectedRoute>
+
+      
       <ContainerComponent onClick={onClick}>
         {IconComponent}
         {ContentComponent}
       </ContainerComponent>
+      </ProtectedRoute>
     );
   } else {
     return (
+      <ProtectedRoute>
+
       <Link href={link} passHref>
+        
         <ContainerComponent>
           {IconComponent}
           {ContentComponent}
         </ContainerComponent>
       </Link>
+      </ProtectedRoute>
+
     );
   }
 };
