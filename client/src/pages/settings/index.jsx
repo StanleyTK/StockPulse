@@ -45,7 +45,7 @@ const Settings = () => {
       <Layout>
         <div className="container mx-auto p-8">
           <div className="flex flex-col items-center mb-12">
-            <h1 className="text-3xl font-semibold mb-8">Settings</h1>
+            <h1 className="text-3xl font-semibold mb-8">STUFF</h1>
           </div>
           <div className="space-y-6 w-full max-w-2xl mx-auto">
             <Options
