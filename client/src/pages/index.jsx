@@ -7,12 +7,13 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 const FeatureCard = ({ icon, title, description }) => (
-  <div className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+  <div className="bg-gray-800 p-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
     <FontAwesomeIcon icon={icon} className="text-white text-5xl" />
     <h4 className="text-2xl font-semibold mt-4 mb-2">{title}</h4>
     <p className="text-gray-400">{description}</p>
   </div>
 );
+
 
 const TestimonialCard = ({ quote, author }) => (
   <div className="bg-gray-700 p-4 rounded-lg shadow text-center">
@@ -37,7 +38,6 @@ const HomePage = () => {
 
             <section className="flex flex-col md:flex-row gap-8">
               <div className="flex-1">
-                <h2 className="text-4xl font-bold mb-8 text-center md:text-left">Features</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   <FeatureCard
                     icon={faChartLine}
@@ -57,7 +57,6 @@ const HomePage = () => {
                 </div>
               </div>
               <div className="flex-1">
-                <h2 className="text-4xl font-bold mb-8 text-center md:text-left">Your Games</h2>
                 {session ? (
                   <GameList />
                 ) : (
