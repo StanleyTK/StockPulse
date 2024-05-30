@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Layout from '../../layout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
 import Modal from './components/Modal';
@@ -15,8 +15,13 @@ const Account = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
 
-  const handleSave = async () => {
-    if (password !== confirmPassword) {
+  const handleSave = () => {
+    if (!username && !email && !password) {
+      setMessage('No changes made.');
+      return;
+    }
+
+    if (password && password !== confirmPassword) {
       setMessage('Passwords do not match.');
       return;
     }
@@ -26,7 +31,7 @@ const Account = () => {
     if (email) changes.push('email');
     if (password) changes.push('password');
 
-    setModalContent(`Are you sure you want to change your ${changes.join(', ')}?`);
+    setModalContent(`Are you sure you want to change your ${changes.join(', ')}? You will be signed out`);
     setShowModal(true);
   };
 
@@ -45,13 +50,10 @@ const Account = () => {
       });
 
       if (res.ok) {
-        setMessage('Profile updated successfully.');
-        const updatedUser = {};
-        if (username) updatedUser.username = username;
-        if (email) updatedUser.email = email;
-        await update({ user: { ...session.user, ...updatedUser } });
+        signOut();
+        
       } else {
-        setMessage('Something went wrong. Please try again.');
+        setMessage('The username or email is already taken');
       }
     } catch (error) {
       setMessage('An error occurred. Please try again later.');
