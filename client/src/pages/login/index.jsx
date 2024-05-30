@@ -15,7 +15,7 @@ const Login = () => {
   useEffect(() => {
     if (session) {
       // console.log(session.user?.email);
-      router.push('/games');
+      router.push('/');
     }
   }, [session]);
 
