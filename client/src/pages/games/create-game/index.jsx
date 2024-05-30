@@ -38,7 +38,7 @@ const CreateGame = () => {
     });
     if (res.ok) {
       console.log('Game Created');
-      router.push("/games");
+      router.push("/");
     }
     else {
       alert("Something went wrong");

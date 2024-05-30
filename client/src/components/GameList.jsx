@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import Layout from '../layout';
-import ProtectedRoute from '../../components/ProtectedRoute';
 
-const GameList = ({ session }) => {
+const GameList = () => {
+  const { data: session } = useSession();
   const [gamesList, setGamesList] = useState([]);
 
   useEffect(() => {
@@ -80,35 +79,4 @@ const GameList = ({ session }) => {
   );
 };
 
-const Game = () => {
-  const { data: session } = useSession();
-
-  return (
-    <ProtectedRoute>
-      <Layout>
-        <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-          <div className="w-full max-w-6xl p-8">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="col-span-1">
-                <Link href="/games/create-game" passHref>
-                  <div className="w-3/4 bg-gray-800 text-white font-bold py-6 rounded-lg shadow-lg cursor-pointer text-center transition-transform duration-200 ease-in-out transform hover:scale-105 mx-auto">
-                    <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
-                    Create New Game
-                  </div>
-                </Link>
-              </div>
-              <div className="col-span-3">
-                <h3 className="bg-gray-800 text-white font-bold py-6 rounded-lg shadow-lg text-center mb-6">
-                  List of the Games
-                </h3>
-                <GameList session={session} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </Layout>
-    </ProtectedRoute>
-  );
-};
-
-export default Game;
+export default GameList;
