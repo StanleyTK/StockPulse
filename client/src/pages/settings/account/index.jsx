@@ -71,46 +71,54 @@ const Account = () => {
               alt="Profile Picture"
             />
             <h2 className="mt-4 text-4xl font-bold text-white">Account Settings</h2>
+            <p className="text-xl text-gray-300 mt-2">Username: {session?.user?.username || 'N/A'}</p>
+            <p className="text-xl text-gray-300">Email: {session?.user?.email || 'N/A'}</p>
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-400">Username</label>
-            <input
-              type="text"
-              className="mt-1 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white focus:border-green-500 focus:ring-green-500"
-              placeholder="Enter your new username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-400">Email</label>
-            <input
-              type="email"
-              className="mt-1 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white focus:border-green-500 focus:ring-green-500"
-              placeholder="Enter your new email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-400">Password</label>
-            <input
-              type="password"
-              className="mt-1 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white focus:border-green-500 focus:ring-green-500"
-              placeholder="Enter your new password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-400">Re-enter Password</label>
-            <input
-              type="password"
-              className="mt-1 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white focus:border-green-500 focus:ring-green-500"
-              placeholder="Re-enter your new password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-400">Username</label>
+              <input
+                type="text"
+                className="mt-1 block w-full text-center shadow-sm sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white focus:border-green-500 focus:ring-green-500"
+                placeholder="Enter your new username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                style={{ height: '40px', width: '300px' }}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-400">Email</label>
+              <input
+                type="email"
+                className="mt-1 block w-full text-center shadow-sm sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white focus:border-green-500 focus:ring-green-500"
+                placeholder="Enter your new email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{ height: '40px', width: '300px' }}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-400">Password</label>
+              <input
+                type="password"
+                className="mt-1 block w-full text-center shadow-sm sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white focus:border-green-500 focus:ring-green-500"
+                placeholder="Enter your new password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={{ height: '40px', width: '300px' }}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-400">Re-enter Password</label>
+              <input
+                type="password"
+                className="mt-1 block w-full text-center shadow-sm sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white focus:border-green-500 focus:ring-green-500"
+                placeholder="Re-enter your new password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                style={{ height: '40px', width: '300px' }}
+              />
+            </div>
           </div>
           <p className={`text-sm ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>{message}</p>
           <div className="flex justify-end space-x-4 mt-6">
