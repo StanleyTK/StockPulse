@@ -89,6 +89,18 @@ const HomePage = () => {
                     quote="I love practicing with virtual money before putting real money on the line."
                     author="Emily Wright"
                   />
+                   <TestimonialCard
+                    quote="StockPulse has revolutionized the way I trade stocks. It's educational resources are top-notch!"
+                    author="Jane Doe"
+                  />
+                  <TestimonialCard
+                    quote="The real-time data feature allows me to make quick decisions confidently."
+                    author="John Smith"
+                  />
+                  <TestimonialCard
+                    quote="I love practicing with virtual money before putting real money on the line."
+                    author="Emily Wright"
+                  />
                 </div>
               </section>
             )}

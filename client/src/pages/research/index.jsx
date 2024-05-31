@@ -49,7 +49,6 @@ const Research = () => {
     ]
   };
 
-  // Sample data for stock stats
   const stats = {
     Open: '$130',
     High: '$135',
