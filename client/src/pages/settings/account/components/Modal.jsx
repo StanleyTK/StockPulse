@@ -4,7 +4,7 @@ const Modal = ({ isOpen, close, confirm, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-sm w-full">
         <div className="mb-4 text-white">{children}</div>
         <div className="flex justify-end space-x-4">

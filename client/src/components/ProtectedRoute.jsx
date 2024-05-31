@@ -7,15 +7,23 @@ const ProtectedRoute = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'loading') return; 
-    if (!session) router.push('/login'); 
+    if (status === 'loading') return;
+    if (!session) router.push('/login');
   }, [session, status, router]);
 
-  if (session) {
-    return children;
+  if (status === 'loading') {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
-  return <div>Loading...</div>;
+  if (session) {
+    return children; 
+  }
+
+  return null;
 };
 
 export default ProtectedRoute;

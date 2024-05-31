@@ -54,11 +54,11 @@ const Navbar = () => {
       <div className="flex space-x-4 items-center">
         {session ? (
           <>
-            <Link href="/games" legacyBehavior>
+            {/* <Link href="/games" legacyBehavior>
               <a className="bg-dark-black hover:bg-deeper-black text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-md">
                 Games
               </a>
-            </Link>
+            </Link> */}
             <div className="relative">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
