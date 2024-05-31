@@ -30,6 +30,9 @@ yarn-error.log*
 .next/
 out/
 
+#fox(windows) specific files
+venv/
+
 # Spring Boot specific files
 HELP.md
 target/
