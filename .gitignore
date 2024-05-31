@@ -14,6 +14,8 @@ node_modules/
 /build
 /dist
 
+/myenv
+
 # Ignore IDE-specific files
 .idea/
 *.iws
@@ -29,6 +31,9 @@ yarn-error.log*
 # Next.js specific ignores
 .next/
 out/
+
+#fox(windows) specific files
+venv/
 
 # Spring Boot specific files
 HELP.md

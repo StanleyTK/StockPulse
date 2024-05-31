@@ -13,7 +13,6 @@ const CreateGame = () => {
   const [gameType, setGameType] = useState('personal');
   const { data: session } = useSession();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (startingMoney < 1000 || startingMoney > 1000000) {
