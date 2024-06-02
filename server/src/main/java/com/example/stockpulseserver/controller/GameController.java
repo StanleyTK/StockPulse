@@ -2,16 +2,14 @@ package com.example.stockpulseserver.controller;
 
 import com.example.stockpulseserver.dto.ResponseMessage;
 import com.example.stockpulseserver.model.Game;
-import com.example.stockpulseserver.model.UserGame;
 import com.example.stockpulseserver.service.GamesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
-
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/game")
@@ -47,7 +45,6 @@ public class GameController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Game>> getGamesByUser(@PathVariable Long userId) {
-        System.out.println(userId);
         List<Game> games = gameService.getGamesByUser(userId);
         return ResponseEntity.ok(games);
     }
@@ -64,4 +61,12 @@ public class GameController {
                 .body(new ResponseMessage("Game deleted successfully", HttpStatus.CREATED.value()));
     }
 
+    @PostMapping("/{gameId}/user/{userId}")
+    public ResponseEntity<?> isGameAuthorized(@PathVariable Long gameId, @PathVariable Long userId) {
+        if (gameService.isGameAuthorizedById(gameId, userId)) {
+            return ResponseEntity.ok(gameService.getGameById(gameId));
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseMessage("User not authorized for the game", HttpStatus.FORBIDDEN.value()));
+        }
+    }
 }

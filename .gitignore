@@ -34,6 +34,7 @@ out/
 
 #fox(windows) specific files
 venv/
+myenv/
 
 # Spring Boot specific files
 HELP.md
