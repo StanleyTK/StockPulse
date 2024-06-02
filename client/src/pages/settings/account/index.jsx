@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import Layout from '../../layout';
 import ProtectedRoute from '../../../components/ProtectedRoute';
-import Modal from './components/Modal';
-
+import Modal from '../../../components/Modal';
 const Account = () => {
   const { data: session, update } = useSession();
   const [username, setUsername] = useState('');
