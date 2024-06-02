@@ -5,8 +5,8 @@ import yfinance as yf
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/stock/<ticker>', methods=['GET'])
-def get_stock_data(ticker):
+@app.route('/api/stock/latest/<ticker>', methods=['GET'])
+def get_latest_stock_data(ticker):
     stock = yf.Ticker(ticker)
     hist = stock.history(period="1d")
 
@@ -19,6 +19,28 @@ def get_stock_data(ticker):
             "low": hist["Low"].iloc[-1].item(),
             "volume": hist["Volume"].iloc[-1].item()
         }
+        return jsonify(data)
+    else:
+        return jsonify({"error": "No data found for ticker"}), 404
+
+@app.route('/api/stock/history/<ticker>', methods=['GET'])
+def get_historical_stock_data(ticker):
+    stock = yf.Ticker(ticker)
+    hist = stock.history(period="5y", interval="1mo")
+
+    if not hist.empty:
+        data = []
+        for index, row in hist.iterrows():
+            data.append({
+                "date": index.strftime('%Y-%m-%d'),
+                "month": index.strftime('%B'),
+                "year": index.strftime('%Y'),
+                "open": row["Open"],
+                "close": row["Close"],
+                "high": row["High"],
+                "low": row["Low"],
+                "volume": row["Volume"]
+            })
         return jsonify(data)
     else:
         return jsonify({"error": "No data found for ticker"}), 404

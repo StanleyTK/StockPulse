@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
-    if (value.length <= 5) {
+    if (value.length <= 8) {
       setSearchQuery(value);
     }
   };
@@ -38,27 +38,21 @@ const Navbar = () => {
       </div>
 
       {session ? (
-      <form onSubmit={handleSearchSubmit} className="flex items-center bg-gray-800 rounded-full overflow-hidden shadow-md">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          placeholder="Search for a stock ticker..."
-          className="px-4 py-2 w-72 text-white bg-gray-800 focus:outline-none"
-        />
-        <button type="submit" className="px-4 py-2 bg-gray-700 text-white font-bold hover:bg-gray-600 transition duration-300">Search</button>
-      </form>
+        <form onSubmit={handleSearchSubmit} className="flex items-center bg-gray-800 rounded-full overflow-hidden shadow-md">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Search for a stock ticker..."
+            className="px-4 py-2 w-72 text-white bg-gray-800 focus:outline-none"
+          />
+          <button type="submit" className="px-4 py-2 bg-gray-700 text-white font-bold hover:bg-gray-600 transition duration-300">Search</button>
+        </form>
       ) : null}
- 
 
       <div className="flex space-x-4 items-center">
         {session ? (
           <>
-            {/* <Link href="/games" legacyBehavior>
-              <a className="bg-dark-black hover:bg-deeper-black text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-md">
-                Games
-              </a>
-            </Link> */}
             <div className="relative">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -74,11 +68,6 @@ const Navbar = () => {
                       Settings
                     </a>
                   </Link>
-                  {/* <Link href="/profile" legacyBehavior>
-                    <a className="block px-4 py-2 text-gray-300 hover:bg-gray-700 transition duration-300 ease-in-out">
-                      Profile
-                    </a>
-                  </Link> */}
                   <button
                     onClick={() => signOut()}
                     className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-700 transition duration-300 ease-in-out"

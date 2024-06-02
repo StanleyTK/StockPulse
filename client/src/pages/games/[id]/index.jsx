@@ -26,11 +26,9 @@ const GameDetails = () => {
         if (response.ok) {
           const data = await response.json();
           setGame(data);
-        } else if (response.status === 403) {
-          setError('You are not authorized to view this game.');
         } else {
-          setError('Game not found.');
-        }
+          router.push("/error");
+        } 
       } catch (error) {
         console.error('Error fetching game details:', error);
         setError('An error occurred while fetching the game details.');
@@ -45,7 +43,6 @@ const GameDetails = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white">
-        <div className="loader"></div>
       </div>
     );
   }
@@ -53,11 +50,6 @@ const GameDetails = () => {
   if (error) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white">
-        <div className="w-full max-w-4xl p-8">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <p className="mt-2 text-xl">{error}</p>
-          </div>
-        </div>
       </div>
     );
   }
@@ -65,11 +57,6 @@ const GameDetails = () => {
   if (!game) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white">
-        <div className="w-full max-w-4xl p-8">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-            <p className="mt-2 text-xl">Game not found.</p>
-          </div>
-        </div>
       </div>
     );
   }

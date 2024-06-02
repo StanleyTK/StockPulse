@@ -14,9 +14,15 @@ public class StockService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Object getStockData(String ticker) {
-        String url = "http://localhost:5000/api/stock/" + ticker;
-        logger.info("Requesting stock data from URL: {}", url);
+    public Object getLatestStockData(String ticker) {
+        String url = "http://localhost:5000/api/stock/latest/" + ticker;
+        logger.info("Requesting latest stock data from URL: {}", url);
+        return restTemplate.getForObject(url, Object.class);
+    }
+
+    public Object getHistoricalStockData(String ticker) {
+        String url = "http://localhost:5000/api/stock/history/" + ticker;
+        logger.info("Requesting historical stock data from URL: {}", url);
         return restTemplate.getForObject(url, Object.class);
     }
 }
