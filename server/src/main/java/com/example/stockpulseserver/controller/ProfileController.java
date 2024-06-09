@@ -30,5 +30,4 @@ public class ProfileController {
         return profileService.getProfileByUserId(id);
     }
 
-    // Other endpoints can be added here
 }

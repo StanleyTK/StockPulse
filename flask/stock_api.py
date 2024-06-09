@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import yfinance as yf
 
@@ -25,8 +25,11 @@ def get_latest_stock_data(ticker):
 
 @app.route('/api/stock/history/<ticker>', methods=['GET'])
 def get_historical_stock_data(ticker):
+    period = request.args.get('period', '5y')
+    interval = request.args.get('interval', '1mo')
+
     stock = yf.Ticker(ticker)
-    hist = stock.history(period="5y", interval="1mo")
+    hist = stock.history(period=period, interval=interval)
 
     if not hist.empty:
         data = []
@@ -44,6 +47,7 @@ def get_historical_stock_data(ticker):
         return jsonify(data)
     else:
         return jsonify({"error": "No data found for ticker"}), 404
+
 
 if __name__ == '__main__':
     app.run(debug=True)
